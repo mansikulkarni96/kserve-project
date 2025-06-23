@@ -1,0 +1,18 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "tensorflow-mnist"
+  namespace: "default"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: tensorflow
+      storageUri: "gs://kfserving-examples/models/tensorflow/flowers"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: 1000m
+          memory: 2Gi

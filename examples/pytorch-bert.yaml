@@ -1,0 +1,18 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "pytorch-bert"
+  namespace: "default"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: "gs://kfserving-examples/models/torchserve/image_classifier/v1"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1Gi
+        limits:
+          cpu: 2000m
+          memory: 4Gi

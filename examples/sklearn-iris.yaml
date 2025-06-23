@@ -1,0 +1,27 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "sklearn-iris"
+  namespace: "default"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: sklearn
+      storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+---
+# Sample input data for testing
+# Save this as examples/iris-input.json:
+# {
+#   "instances": [
+#     [6.8, 2.8, 4.8, 1.4],
+#     [6.0, 3.4, 4.5, 1.6]
+#   ]
+# }

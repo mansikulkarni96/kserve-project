@@ -1,0 +1,35 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "custom-model"
+  namespace: "default"
+spec:
+  predictor:
+    containers:
+    - name: kserve-container
+      image: "your-registry/custom-model:latest"
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      env:
+      - name: STORAGE_URI
+        value: "gs://your-bucket/model"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+      readinessProbe:
+        httpGet:
+          path: /v1/models/custom-model
+          port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 5
+      livenessProbe:
+        httpGet:
+          path: /v1/models/custom-model
+          port: 8080
+        initialDelaySeconds: 30
+        periodSeconds: 10
