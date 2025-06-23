@@ -1,0 +1,8 @@
+# KServe Installation Configuration
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kserve
+---
+# This file contains the KServe installation configuration
+# To install, run the installation script in scripts/deploy.sh
